@@ -1,8 +1,8 @@
-export abstract class Irregulatory {
+export abstract class MalicouiousBehavior {
   abstract getMessage(): string;
 }
 
-export class PushTimingIrregulatory extends Irregulatory {
+export class PushTimingMalicouiousBehavior extends MalicouiousBehavior {
   constructor(
     private readonly pushTime: Date,
     private readonly repositoryName: string,
@@ -17,7 +17,7 @@ export class PushTimingIrregulatory extends Irregulatory {
   }
 }
 
-export class TeamCreationIrregulatory extends Irregulatory {
+export class TeamCreationMalicouiousBehavior extends MalicouiousBehavior {
   constructor(
     private readonly teamName: string,
     private readonly organizationName: string,
@@ -30,7 +30,7 @@ export class TeamCreationIrregulatory extends Irregulatory {
   }
 }
 
-export class RepositoryDeleteIrregulatory extends Irregulatory {
+export class RepositoryDeleteMalicouiousBehavior extends MalicouiousBehavior {
   constructor(
     private readonly deletionTime: Date,
     private readonly repositoryName: string,
