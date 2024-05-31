@@ -1,3 +1,4 @@
+import { ConsoleNotifier, Notifier } from "./types/Notifiers";
 import { Event } from "./types/events";
 import {
   convertBodyRepositoryDeleteEvent,
@@ -13,3 +14,5 @@ export const TYPE_TO_CLASS_INNITIATORS_MAP: Record<
   "team.created": (body) => convertBodyToTeamCreationEvent(body),
   "repository.deleted": (body) => convertBodyRepositoryDeleteEvent(body),
 };
+
+export const NOTIFIERS: Notifier[] = [new ConsoleNotifier()];

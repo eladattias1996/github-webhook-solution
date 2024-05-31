@@ -1,4 +1,4 @@
-import { TYPE_TO_CLASS_INNITIATORS_MAP } from "./constants";
+import { NOTIFIERS, TYPE_TO_CLASS_INNITIATORS_MAP } from "./constants";
 import { Request } from "express";
 import { Irregulatory } from "./types/Irregulatory";
 
@@ -29,7 +29,7 @@ export const getEventType = ({ headers, body }: Request): string => {
 };
 
 const notify = (irregularity: Irregulatory) => {
-  console.log(irregularity.getMessage());
+  NOTIFIERS.forEach((notifier) => notifier.notify(irregularity));
 };
 
 export const notifyIrregularities = (irregularities: Irregulatory[]) => {
