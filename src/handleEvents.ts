@@ -1,18 +1,18 @@
-import { NOTIFIERS, TYPE_TO_CLASS_INNITIATORS_MAP } from "./constants";
+import { NOTIFIERS, TYPE_TO_EVENT_INITIALIZER_MAP } from "./constants";
 import { Request } from "express";
 import { MalicouiousBehavior } from "./types/malicious-behaviors";
 
 export const handleEvent = (request: Request) => {
   const eventType = getEventType(request);
-  const initiator = TYPE_TO_CLASS_INNITIATORS_MAP[eventType];
+  const initializeEvent = TYPE_TO_EVENT_INITIALIZER_MAP[eventType];
 
-  if (!initiator) return;
+  if (!initializeEvent) return;
 
   console.log("--------------------------------");
   console.log(`Got supported event ${eventType}, about to process it`);
 
   const payload = request.body;
-  const event = initiator(payload);
+  const event = initializeEvent(payload);
 
   const maliciousBehaviors = event.validate();
 
@@ -32,7 +32,9 @@ const notify = (maliciousBehavior: MalicouiousBehavior) => {
   NOTIFIERS.forEach((notifier) => notifier.notify(maliciousBehavior));
 };
 
-export const notifyMaliciousBehaviors = (maliciousBehaviors: MalicouiousBehavior[]) => {
+export const notifyMaliciousBehaviors = (
+  maliciousBehaviors: MalicouiousBehavior[],
+) => {
   maliciousBehaviors.forEach((maliciousBehavior: MalicouiousBehavior) =>
     notify(maliciousBehavior),
   );
