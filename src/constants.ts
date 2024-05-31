@@ -1,6 +1,4 @@
-import {
-  Event,
-} from "./types/events";
+import { Event } from "./types/events";
 import {
   convertBodyRepositoryDeleteEvent,
   convertBodyToPushEvent,
