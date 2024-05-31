@@ -1,11 +1,11 @@
-import { Irregulatory } from "./Irregulatory";
+import { MalicouiousBehavior } from "./malicious-behaviors";
 
 export abstract class Notifier {
-    abstract notify(irregularity: Irregulatory)
+  abstract notify(maliciousBehavior: MalicouiousBehavior): void;
 }
 
 export class ConsoleNotifier extends Notifier {
-    notify(irregularity: Irregulatory) {
-        console.log(irregularity.getMessage());
-    }
+  notify(maliciousBehavior: MalicouiousBehavior) {
+    console.log(maliciousBehavior.getMessage());
+  }
 }

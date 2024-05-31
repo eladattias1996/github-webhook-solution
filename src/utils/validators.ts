@@ -1,8 +1,8 @@
 import {
-  PushTimingIrregulatory,
-  RepositoryDeleteIrregulatory,
-  TeamCreationIrregulatory,
-} from "../types/Irregulatory";
+  PushTimingMalicouiousBehavior,
+  RepositoryDeleteMalicouiousBehavior,
+  TeamCreationMalicouiousBehavior,
+} from "../types/malicious-behaviors";
 import { getDifferenceBetweenDatesInMinutes } from "./date-utils";
 import {
   PushEvent,
@@ -20,7 +20,7 @@ export const validatePushTime = (event: PushEvent) => {
     pushHour >= SUSPICIOUS_PUSH_START_HOUR &&
     pushHour < SUSPICIOUS_PUSH_END_HOUR
   ) {
-    return new PushTimingIrregulatory(
+    return new PushTimingMalicouiousBehavior(
       event.pushTime,
       event.repository.name,
       event.pushingUser,
@@ -36,7 +36,7 @@ export const validateTeamCreation = ({
   const prefixes = [/^hacker/];
 
   if (prefixes.some((prefix) => team.name.match(prefix))) {
-    return new TeamCreationIrregulatory(team.name, organziation.name);
+    return new TeamCreationMalicouiousBehavior(team.name, organziation.name);
   }
 };
 
@@ -47,7 +47,7 @@ export const validateDeleteRepository = ({
   const { createdAt, updatedAt } = repository;
 
   if (getDifferenceBetweenDatesInMinutes(createdAt, updatedAt) < 10) {
-    return new RepositoryDeleteIrregulatory(
+    return new RepositoryDeleteMalicouiousBehavior(
       updatedAt,
       repository.name,
       organziation.name,

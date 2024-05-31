@@ -1,4 +1,4 @@
-import { Irregulatory } from "./Irregulatory";
+import { MalicouiousBehavior } from "./malicious-behaviors";
 import {
   validateDeleteRepository,
   validatePushTime,
@@ -21,22 +21,24 @@ export class Repository {
   ) {}
 }
 
-export type IrregulatoryValidator = (event: Event) => Irregulatory | undefined;
+export type MaliciousBehaviorValidator = (
+  event: Event,
+) => MalicouiousBehavior | undefined;
 
 export abstract class Event {
   constructor(
     readonly organziation: Organization,
-    private readonly validators: IrregulatoryValidator[],
+    private readonly validators: MaliciousBehaviorValidator[],
   ) {}
 
-  validate(): Irregulatory[] {
-    return this.validators.reduce<Irregulatory[]>(
-      (currentIrregulatories, validate) => {
-        const irregularity = validate(this);
+  validate(): MalicouiousBehavior[] {
+    return this.validators.reduce<MalicouiousBehavior[]>(
+      (currentMaliciousBehaviors, validate) => {
+        const maliciousBehavior = validate(this);
 
-        return irregularity
-          ? [...currentIrregulatories, irregularity]
-          : currentIrregulatories;
+        return maliciousBehavior
+          ? [...currentMaliciousBehaviors, maliciousBehavior]
+          : currentMaliciousBehaviors;
       },
       [],
     );

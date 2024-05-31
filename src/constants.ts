@@ -1,4 +1,4 @@
-import { ConsoleNotifier, Notifier } from "./types/Notifiers";
+import { ConsoleNotifier, Notifier } from "./types/notifiers";
 import { Event } from "./types/events";
 import {
   convertBodyRepositoryDeleteEvent,

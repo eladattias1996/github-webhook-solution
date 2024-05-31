@@ -1,6 +1,6 @@
 import { NOTIFIERS, TYPE_TO_CLASS_INNITIATORS_MAP } from "./constants";
 import { Request } from "express";
-import { Irregulatory } from "./types/Irregulatory";
+import { MalicouiousBehavior } from "./types/malicious-behaviors";
 
 export const handleEvent = (request: Request) => {
   const eventType = getEventType(request);
@@ -14,9 +14,9 @@ export const handleEvent = (request: Request) => {
   const payload = request.body;
   const event = initiator(payload);
 
-  const irregularities = event.validate();
+  const maliciousBehaviors = event.validate();
 
-  notifyIrregularities(irregularities);
+  notifyMaliciousBehaviors(maliciousBehaviors);
 };
 
 export const getEventType = ({ headers, body }: Request): string => {
@@ -28,10 +28,12 @@ export const getEventType = ({ headers, body }: Request): string => {
   return `${eventGroup}${actionAddition}`;
 };
 
-const notify = (irregularity: Irregulatory) => {
-  NOTIFIERS.forEach((notifier) => notifier.notify(irregularity));
+const notify = (maliciousBehavior: MalicouiousBehavior) => {
+  NOTIFIERS.forEach((notifier) => notifier.notify(maliciousBehavior));
 };
 
-export const notifyIrregularities = (irregularities: Irregulatory[]) => {
-  irregularities.forEach((irregularity: Irregulatory) => notify(irregularity));
+export const notifyMaliciousBehaviors = (maliciousBehaviors: MalicouiousBehavior[]) => {
+  maliciousBehaviors.forEach((maliciousBehavior: MalicouiousBehavior) =>
+    notify(maliciousBehavior),
+  );
 };
