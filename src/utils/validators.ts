@@ -33,7 +33,7 @@ export const validateTeamCreation = ({
   team,
   organziation,
 }: TeamCreationEvent) => {
-  const prefixes = [/^hacker/];
+const prefixes = [/^hacker*/];
 
   if (prefixes.some((prefix) => team.name.match(prefix))) {
     return new TeamCreationMalicouiousBehavior(team.name, organziation.name);
