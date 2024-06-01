@@ -50,6 +50,28 @@ export abstract class Event {
   }
 }
 
+export abstract class TeamEvent extends Event {
+  constructor(
+    readonly team: Team,
+    organization: Organization,
+    user: User,
+    validators: MaliciousBehaviorValidator[],
+  ) {
+    super(organization, user, validators);
+  }
+}
+
+export abstract class RepositoryEvent extends Event {
+  constructor(
+    readonly repository: Repository,
+    organization: Organization,
+    user: User,
+    validators: MaliciousBehaviorValidator[],
+  ) {
+    super(organization, user, validators);
+  }
+}
+
 export class PushEvent extends Event {
   constructor(
     readonly pushTime: Date,
@@ -61,22 +83,14 @@ export class PushEvent extends Event {
   }
 }
 
-export class TeamCreationEvent extends Event {
-  constructor(
-    readonly team: Team,
-    organization: Organization,
-    user: User,
-  ) {
-    super(organization, user, [validateTeamCreation]);
+export class TeamCreationEvent extends TeamEvent {
+  constructor(team: Team, organization: Organization, user: User) {
+    super(team, organization, user, [validateTeamCreation]);
   }
 }
 
-export class RepositoryDeleteEvent extends Event {
-  constructor(
-    readonly repository: Repository,
-    organization: Organization,
-    user: User,
-  ) {
-    super(organization, user, [validateDeleteRepository]);
+export class RepositoryDeleteEvent extends RepositoryEvent {
+  constructor(repository: Repository, organization: Organization, user: User) {
+    super(repository, organization, user, [validateDeleteRepository]);
   }
 }
