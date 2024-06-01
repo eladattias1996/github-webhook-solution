@@ -12,8 +12,13 @@ export interface RespoitoryPayload {
   updated_at: string;
 }
 
+export interface SenderPayload {
+  login: string;
+}
+
 export interface BaseEventPayload {
   organization: OrganizationPayload;
+  sender: SenderPayload;
 }
 
 export interface TeamEventPayload extends BaseEventPayload {
