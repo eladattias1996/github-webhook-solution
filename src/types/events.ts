@@ -31,7 +31,7 @@ export type MaliciousBehaviorValidator = (
 
 export abstract class Event {
   constructor(
-    readonly organziation: Organization,
+    readonly organization: Organization,
     readonly user: User,
     private readonly validators: MaliciousBehaviorValidator[],
   ) {}

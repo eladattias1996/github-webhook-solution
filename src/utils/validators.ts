@@ -24,14 +24,14 @@ export const validatePushTime = (event: PushEvent) => {
       event.pushTime,
       event.repository.name,
       event.user.username,
-      event.organziation.name,
+      event.organization.name,
     );
   }
 };
 
 export const validateTeamCreation = ({
   team,
-  organziation,
+  organization: organziation,
   user,
 }: TeamCreationEvent) => {
   const prefixes = [/^hacker*/];
@@ -47,7 +47,7 @@ export const validateTeamCreation = ({
 
 export const validateDeleteRepository = ({
   repository,
-  organziation,
+  organization: organziation,
   user,
 }: RepositoryDeleteEvent) => {
   const { createdAt, updatedAt } = repository;
