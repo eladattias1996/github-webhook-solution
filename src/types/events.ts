@@ -9,6 +9,10 @@ export class Organization {
   constructor(readonly name: string) {}
 }
 
+export class User {
+  constructor(readonly username: string) {}
+}
+
 export class Team {
   constructor(readonly name: string) {}
 }
@@ -27,7 +31,8 @@ export type MaliciousBehaviorValidator = (
 
 export abstract class Event {
   constructor(
-    readonly organziation: Organization,
+    readonly organization: Organization,
+    readonly user: User,
     private readonly validators: MaliciousBehaviorValidator[],
   ) {}
 
@@ -48,11 +53,11 @@ export abstract class Event {
 export class PushEvent extends Event {
   constructor(
     readonly pushTime: Date,
-    readonly pushingUser: string,
     readonly repository: Repository,
     organization: Organization,
+    user: User,
   ) {
-    super(organization, [validatePushTime]);
+    super(organization, user, [validatePushTime]);
   }
 }
 
@@ -60,8 +65,9 @@ export class TeamCreationEvent extends Event {
   constructor(
     readonly team: Team,
     organization: Organization,
+    user: User,
   ) {
-    super(organization, [validateTeamCreation]);
+    super(organization, user, [validateTeamCreation]);
   }
 }
 
@@ -69,7 +75,8 @@ export class RepositoryDeleteEvent extends Event {
   constructor(
     readonly repository: Repository,
     organization: Organization,
+    user: User,
   ) {
-    super(organization, [validateDeleteRepository]);
+    super(organization, user, [validateDeleteRepository]);
   }
 }

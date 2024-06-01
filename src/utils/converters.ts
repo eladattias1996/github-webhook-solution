@@ -5,12 +5,14 @@ import {
   RepositoryDeleteEvent,
   Team,
   TeamCreationEvent,
+  User,
 } from "../types/events";
 import {
   OrganizationPayload,
   PushEventPayload,
   RepositoryDeletedEventPayload,
   RespoitoryPayload,
+  SenderPayload,
   TeamCreatedEventPayload,
   TeamPayload,
 } from "../types/payloads";
@@ -18,6 +20,9 @@ import {
 export const convertOrganizationPayloadToOrganization = ({
   login,
 }: OrganizationPayload): Organization => new Organization(login);
+
+export const convertSenderPayloadToUser = ({ login }: SenderPayload): User =>
+  new User(login);
 
 export const convertRepositoryPayloadToRepository = ({
   name,
@@ -35,9 +40,9 @@ export const convertBodyToPushEvent = (body: unknown): PushEvent => {
 
   return new PushEvent(
     pushedAt,
-    payload.pusher.name,
     convertRepositoryPayloadToRepository(payload.repository),
     convertOrganizationPayloadToOrganization(payload.organization),
+    convertSenderPayloadToUser(payload.sender),
   );
 };
 
@@ -49,6 +54,7 @@ export const convertBodyToTeamCreationEvent = (
   return new TeamCreationEvent(
     convertTeamPayloadToTeam(payload.team),
     convertOrganizationPayloadToOrganization(payload.organization),
+    convertSenderPayloadToUser(payload.sender),
   );
 };
 
@@ -60,5 +66,6 @@ export const convertBodyRepositoryDeleteEvent = (
   return new RepositoryDeleteEvent(
     convertRepositoryPayloadToRepository(payload.repository),
     convertOrganizationPayloadToOrganization(payload.organization),
+    convertSenderPayloadToUser(payload.sender),
   );
 };

@@ -8,6 +8,7 @@
 
 - Clone the project using `git clone` command
 - Install dependencies using `npm install`
+- In local machine - config forwarding the git webhooks to your local machine in port 3000 (tested with ngrok)
 - Run `npm run start`
 
 ## Explanation about the logs

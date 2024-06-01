@@ -21,12 +21,13 @@ export class TeamCreationMalicouiousBehavior extends MalicouiousBehavior {
   constructor(
     private readonly teamName: string,
     private readonly organizationName: string,
+    private readonly creatingUser: string,
   ) {
     super();
   }
 
   getMessage(): string {
-    return `A suspicious team called ${this.teamName} in organization ${this.organizationName} was created`;
+    return `A suspicious team called ${this.teamName} in organization ${this.organizationName} was created by user "${this.creatingUser}"`;
   }
 }
 
@@ -35,11 +36,12 @@ export class RepositoryDeleteMalicouiousBehavior extends MalicouiousBehavior {
     private readonly deletionTime: Date,
     private readonly repositoryName: string,
     private readonly organizationName: string,
+    private readonly deletingUser: string,
   ) {
     super();
   }
 
   getMessage(): string {
-    return `Repostiory ${this.repositoryName} in organization name ${this.organizationName} was deleted at ${this.deletionTime}, less than 10 minutes from its creation`;
+    return `Repostiory ${this.repositoryName} in organization name ${this.organizationName} was deleted at ${this.deletionTime}, less than 10 minutes from its creation by user "${this.deletingUser}"`;
   }
 }

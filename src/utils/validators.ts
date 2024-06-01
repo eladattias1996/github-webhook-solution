@@ -23,26 +23,32 @@ export const validatePushTime = (event: PushEvent) => {
     return new PushTimingMalicouiousBehavior(
       event.pushTime,
       event.repository.name,
-      event.pushingUser,
-      event.organziation.name,
+      event.user.username,
+      event.organization.name,
     );
   }
 };
 
 export const validateTeamCreation = ({
   team,
-  organziation,
+  organization: organziation,
+  user,
 }: TeamCreationEvent) => {
-const prefixes = [/^hacker*/];
+  const prefixes = [/^hacker*/];
 
   if (prefixes.some((prefix) => team.name.match(prefix))) {
-    return new TeamCreationMalicouiousBehavior(team.name, organziation.name);
+    return new TeamCreationMalicouiousBehavior(
+      team.name,
+      organziation.name,
+      user.username,
+    );
   }
 };
 
 export const validateDeleteRepository = ({
   repository,
-  organziation,
+  organization: organziation,
+  user,
 }: RepositoryDeleteEvent) => {
   const { createdAt, updatedAt } = repository;
 
@@ -51,6 +57,7 @@ export const validateDeleteRepository = ({
       updatedAt,
       repository.name,
       organziation.name,
+      user.username,
     );
   }
 };
