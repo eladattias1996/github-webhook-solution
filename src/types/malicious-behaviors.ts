@@ -42,6 +42,6 @@ export class RepositoryDeleteMalicouiousBehavior extends MalicouiousBehavior {
   }
 
   getMessage(): string {
-    return `Repostiory ${this.repositoryName} in organization name ${this.organizationName} was deleted at ${this.deletionTime}, less than 10 minutes from its creation by user ${this.deletingUser}`;
+    return `Repostiory ${this.repositoryName} in organization name ${this.organizationName} was deleted at ${this.deletionTime}, less than 10 minutes from its creation by user "${this.deletingUser}"`;
   }
 }
